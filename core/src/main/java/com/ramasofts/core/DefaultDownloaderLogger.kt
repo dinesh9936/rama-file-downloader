@@ -5,7 +5,7 @@ import android.util.Log
 
 object DefaultDownloaderLogger : DownloaderLogger {
 
-    private const val DEFAULT_TAG = "Downloader"
+    private const val DEFAULT_TAG = "RamaFileDownloader"
 
     override fun d(tag: String, msg: String) {
         Log.d(tag.ifEmpty { DEFAULT_TAG }, msg)

@@ -24,14 +24,17 @@ class DownloadWorker(
     private val logger: DownloaderLogger = DefaultDownloaderLogger
 ) {
 
-    private val TAG = "DownloaderWorker"
+    private val TAG = "RamaDownloaderWorker"
 
     private val client = OkHttpClient.Builder()
         .connectTimeout(30, TimeUnit.SECONDS)
-        .readTimeout(0, TimeUnit.SECONDS) // required for big files
+        .readTimeout(0, TimeUnit.SECONDS)
         .retryOnConnectionFailure(true)
         .build()
 
+    // withContext(Dispatchers.IO) make download function on background thread
+    // temFile - created to store chunks of file downloaded in temp file before complete
+    //
     suspend fun start() = withContext(Dispatchers.IO) {
 
         logger.d(TAG, "Starting download: ${config.url}")
